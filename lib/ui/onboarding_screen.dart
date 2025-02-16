@@ -155,7 +155,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   ? () {
                                 Navigator.pushReplacementNamed(
                                   context,
-                                  LoginScreen.routeName,
+                                  HomeScreen.routeName
+                                  // LoginScreen.routeName,
                                 );
                               }
                                   : _nextPage,

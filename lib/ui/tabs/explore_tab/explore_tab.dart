@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/ui/movies_category/movies_category.dart';
 
 class ExploreTab extends StatelessWidget {
 
@@ -6,6 +7,6 @@ class ExploreTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('sug'),);
+    return MovieCategory();
   }
 }

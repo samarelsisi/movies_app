@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/ui/home_screen.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_image.dart';
 import '../../../theme/app_style.dart';
@@ -142,10 +143,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
               InkWell(
                 onTap: () {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    LoginScreen.routeName,
-                  );
+                  // Navigator.pushReplacementNamed(
+                  //   context,
+                  //   LoginScreen.routeName,
+                  // );
+                  Navigator.pushNamed(context,HomeScreen.routeName);
                 },
                 child: Text.rich(
                   textAlign: TextAlign.center,

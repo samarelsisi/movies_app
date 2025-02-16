@@ -7,7 +7,7 @@ class AppThemes{
   static final ThemeData lightTheme=ThemeData(
       primaryColor: AppColors.blackColor,
       primaryColorLight:AppColors.whiteColor ,
-      scaffoldBackgroundColor: AppColors.whiteColor,
+      scaffoldBackgroundColor: AppColors.blackColor,
       appBarTheme: AppBarTheme(
           backgroundColor: AppColors.blackColor,
           iconTheme: IconThemeData(
@@ -21,6 +21,7 @@ class AppThemes{
       primaryColorLight:AppColors.blackColor ,
 
       scaffoldBackgroundColor: AppColors.blackColor,
+
       appBarTheme: AppBarTheme(
           backgroundColor: AppColors.blackColor
       ),

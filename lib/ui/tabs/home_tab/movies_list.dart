@@ -1,7 +1,5 @@
 
-
 import 'package:flutter/material.dart';
-
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_image.dart';
 import '../../../theme/app_style.dart';
@@ -106,6 +104,6 @@ class MoviesList extends StatelessWidget {
           )
         ],
       ),
-    );;
+    );
   }
 }

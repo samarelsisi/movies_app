@@ -46,20 +46,18 @@ class _MovieListScreenState extends State<HomeTab> {
               );
             }
             else if(snapshot.hasError){
-              return SingleChildScrollView(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Something went wrong!"),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {}); // Refresh the FutureBuilder
-                        },
-                        child: const Text("Try again"),
-                      ),
-                    ],
-                  ),
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                     Text("Something went wrong!",style: AppStyle.semi20Yellow),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {}); // Refresh the FutureBuilder
+                      },
+                      child: const Text("Try again"),
+                    ),
+                  ],
                 ),
               );
             }
@@ -69,7 +67,7 @@ class _MovieListScreenState extends State<HomeTab> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(snapshot.data?.statusMessage?? "No data available"),
+                    Text(snapshot.data?.statusMessage?? "No data available",style: AppStyle.semi20Yellow),
                     ElevatedButton(
                       onPressed: () {
                         setState(() {}); // Refresh the FutureBuilder
