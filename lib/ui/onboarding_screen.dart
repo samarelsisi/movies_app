@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:movies/ui/auth/login/login_screen.dart';
 import 'package:movies/ui/home_screen.dart';
 
 import '../theme/app_colors.dart';
@@ -154,7 +155,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   ? () {
                                 Navigator.pushReplacementNamed(
                                   context,
-                                  HomeScreen.routeName,
+                                  LoginScreen.routeName,
                                 );
                               }
                                   : _nextPage,
