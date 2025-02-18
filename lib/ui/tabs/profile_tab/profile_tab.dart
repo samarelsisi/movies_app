@@ -96,7 +96,7 @@ class _ProfileTabState extends State<ProfileTab> {
                           userName = updatedName;
                           userSelectedAvatarIndex = newAvatarIndex;
                         });
-                      }, onDeleteAccount: () {  },
+                      }, email: '', authToken: '',
                     );
                   },
                 ),

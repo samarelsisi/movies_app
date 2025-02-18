@@ -1,22 +1,29 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:movies/theme/app_colors.dart';
 import 'package:movies/theme/app_style.dart';
 import '../../widgets/avatart_selector.dart';
 import '../../widgets/cutom_button.dart';
 
+// API Base URL
+const String baseUrl = "https://route-movie-apis.vercel.app/";
+
+// Function to show the Edit Profile Modal
 void showEditProfileModal(BuildContext context, {
   required String currentName,
   required int selectedAvatarIndex,
   required List<String> avatarImages,
-  required Function(String, int) onSave, // Callback to update data
-  required Function() onDeleteAccount, // Callback for deleting account
+  required String email, // Required to update the user profile
+  required String authToken, // Authorization token
+  required Function(String, int) onSave, // Callback to update data locally
 }) {
   TextEditingController nameController = TextEditingController(text: currentName);
   int newAvatarIndex = selectedAvatarIndex;
 
   showModalBottomSheet(
     context: context,
-    backgroundColor: AppColors.greyColor, // Background color changed to grey
+    backgroundColor: AppColors.greyColor,
     isScrollControlled: true,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
@@ -70,19 +77,32 @@ void showEditProfileModal(BuildContext context, {
             CustomButton(
               text: "Save",
               color: AppColors.yellowColor,
-              onPressed: () {
-                onSave(nameController.text, newAvatarIndex); // Send updated data
-                Navigator.pop(context); // Close modal
+              onPressed: () async {
+                String updatedName = nameController.text;
+                await _updateUserProfile(
+                  context,
+                  email: email,
+                  name: updatedName,
+                  avatarId: newAvatarIndex,
+                  authToken: authToken,
+                  onSuccess: () {
+                    onSave(updatedName, newAvatarIndex); // Update locally
+                    Navigator.pop(context); // Close modal
+                  },
+                );
               },
             ),
             SizedBox(height: 10),
 
             // Delete Account Button
-            TextButton(
-              onPressed: () => _showDeleteAccountDialog(context, onDeleteAccount),
-              child: Text("Delete Account", style: TextStyle(color: AppColors.redColor, fontSize: 16)),
+            CustomButton(
+              text: "Delete Account",
+              color: AppColors.redColor,
+              textColor: AppColors.whiteColor,
+              onPressed: () {
+                _showDeleteAccountConfirmation(context, authToken);
+              },
             ),
-            SizedBox(height: 10),
           ],
         ),
       );
@@ -90,29 +110,117 @@ void showEditProfileModal(BuildContext context, {
   );
 }
 
-void _showDeleteAccountDialog(BuildContext context, Function() onDeleteAccount) {
-  showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-      backgroundColor: AppColors.greyColor,
-      title: Text("Delete Account", style: AppStyle.bold20WhiteRoboto),
-      content: Text(
-        "Are you sure you want to delete your account? This action cannot be undone.",
-        style: AppStyle.bold20WhiteRoboto,
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: Text("Cancel", style: TextStyle(color: AppColors.whiteColor)),
-        ),
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context); // Close dialog
-            onDeleteAccount(); // Execute deletion callback
-          },
-          child: Text("Delete", style: TextStyle(color: AppColors.redColor)),
-        ),
-      ],
-    ),
+// Function to send PATCH request for updating profile
+Future<void> _updateUserProfile(
+    BuildContext context, {
+      required String email,
+      required String name,
+      required int avatarId,
+      required String authToken,
+      required VoidCallback onSuccess,
+    }) async {
+  final url = Uri.parse("$baseUrl/profile");
+
+  final response = await http.patch(
+    url,
+    headers: {
+      "Authorization": "Bearer $authToken",
+      "Content-Type": "application/json",
+    },
+    body: jsonEncode({
+      "email": email,
+      "name": name,
+      "avaterId": avatarId,
+    }),
   );
+
+  final responseData = jsonDecode(response.body);
+  if (response.statusCode == 200) {
+    onSuccess(); // Notify UI of success
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(responseData["message"], style: TextStyle(color: Colors.white)), backgroundColor: Colors.green),
+    );
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Failed to update profile", style: TextStyle(color: Colors.white)), backgroundColor: Colors.red),
+    );
+  }
+}
+
+// Function to show Delete Account Confirmation Modal
+void _showDeleteAccountConfirmation(BuildContext context, String authToken) {
+  showModalBottomSheet(
+    context: context,
+    backgroundColor: AppColors.greyColor,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+    ),
+    builder: (context) {
+      return Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text("Delete Account", style: AppStyle.bold24WhiteRoboto),
+            SizedBox(height: 10),
+            Text(
+              "Are you sure you want to delete your account? This action cannot be undone.",
+              textAlign: TextAlign.center,
+              style: AppStyle.bold20WhiteRoboto,
+            ),
+            SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomButton(
+                    text: "Cancel",
+                    color: AppColors.greyColor.withOpacity(0.7),
+                    textColor: AppColors.whiteColor,
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: CustomButton(
+                    text: "Delete",
+                    color: AppColors.redColor,
+                    textColor: AppColors.whiteColor,
+                    onPressed: () {
+                      _deleteAccount(context, authToken);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+// Function to Delete Account (Send DELETE Request)
+Future<void> _deleteAccount(BuildContext context, String authToken) async {
+  final url = Uri.parse("$baseUrl/profile");
+
+  final response = await http.delete(
+    url,
+    headers: {
+      "Authorization": "Bearer $authToken",
+    },
+  );
+
+  final responseData = jsonDecode(response.body);
+  if (response.statusCode == 200) {
+    Navigator.pop(context); // Close modal
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(responseData["message"], style: TextStyle(color: Colors.white)), backgroundColor: Colors.green),
+    );
+    // Navigate to Login Screen after deletion
+    Navigator.pushNamedAndRemoveUntil(context, "/login", (route) => false);
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Failed to delete account", style: TextStyle(color: Colors.white)), backgroundColor: Colors.red),
+    );
+  }
 }

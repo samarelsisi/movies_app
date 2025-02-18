@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/theme/app_theme.dart';
 import 'package:movies/ui/auth/forgot_password/forgot_password_screen.dart';
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName: (context) => HomeScreen(),
 
       },
-      initialRoute: IntroScreen.routeName,
+      initialRoute: HomeScreen.routeName,
       theme: AppThemes.lightTheme,
       darkTheme: AppThemes.darkTheme,
       themeMode: ThemeMode.light,
