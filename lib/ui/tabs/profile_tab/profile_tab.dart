@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies/theme/app_colors.dart';
 import 'package:movies/theme/app_style.dart';
-import 'package:movies/ui/tabs/profile_tab/placeholder_content.dart';
+import 'package:movies/ui/widgets/placeholder_content.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../auth/login/login_screen.dart';
 import '../../widgets/cutom_button.dart';
