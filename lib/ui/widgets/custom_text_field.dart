@@ -7,12 +7,15 @@ class CustomTextField extends StatefulWidget {
   final IconData icon;
   final bool isPassword;
   final TextEditingController? controller;
+  final ValueChanged<String>? onChange;
+
 
   const CustomTextField({
     Key? key,
     required this.hintText,
     required this.icon,
     this.isPassword = false,
+    this.onChange,
     this.controller,
   }) : super(key: key);
 
@@ -52,11 +55,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.whiteColor, width: 2),
+          borderSide: BorderSide(color:Colors.transparent, width: 2),
         ),
       ),
+      onChanged:widget.onChange,
       style: TextStyle(color: AppColors.whiteColor),
       cursorColor: AppColors.whiteColor,
+
     );
   }
 }

@@ -11,9 +11,7 @@ import '../../../../theme/app_colors.dart';
 import '../../../../theme/app_image.dart';
 import '../../apis/api_manager.dart';
 import '../../models/MoviesDataResponse.dart';
-import 'movies_carousel.dart';
-
-
+import '../explore_tab/movies_carousel.dart';
 
 class HomeTab extends StatefulWidget {
 
@@ -22,7 +20,6 @@ class HomeTab extends StatefulWidget {
 }
 
 class _MovieListScreenState extends State<HomeTab> {
-  List movies = [];
   late Future<MoviesDataResponse> futureMovies;
 
   @override

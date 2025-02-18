@@ -44,7 +44,6 @@ class MovieCarousel extends StatelessWidget {
                       },
                     )),
                 Align(
-
                   alignment: Alignment.topLeft,
                   child: Container(
                     margin:EdgeInsets.all(5) ,

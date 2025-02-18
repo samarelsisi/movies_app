@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../theme/app_image.dart';
+import '../../theme/app_image.dart';
 
 class PlaceholderContent extends StatelessWidget {
   const PlaceholderContent({super.key});
