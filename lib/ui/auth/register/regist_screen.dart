@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter/material.dart';
-import 'package:movies/ui/home_screen.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_image.dart';
 import '../../../theme/app_style.dart';
+
+import '../../widgets/avatart_selector.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/cutom_button.dart';
 import '../../widgets/language_toggle_switch.dart';
@@ -30,6 +34,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
     AppImage.avatar8,
     AppImage.avatar9,
   ];
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -56,130 +66,145 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 10),
+          child: Form(
+            key :formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 10),
 
-              SizedBox(
-                height: 140,
-                child: PageView.builder(
-                  itemCount: avatarImages.length,
-                  controller: PageController(
-                      viewportFraction: 0.25, initialPage: selectedAvatarIndex),
-                  onPageChanged: (index) {
+                AvatarSelector(
+                  avatarImages: avatarImages,
+                  selectedAvatarIndex: selectedAvatarIndex,
+                  onAvatarSelected: (index) {
                     setState(() {
                       selectedAvatarIndex = index;
                     });
                   },
-                  itemBuilder: (context, index) {
-                    bool isSelected = index == selectedAvatarIndex;
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          selectedAvatarIndex = index;
-                        });
-                      },
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        margin: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Transform.scale(
-                          scale: isSelected ? 2.0 : 1.0,
-                          // Scale effect for selected avatar
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            margin: EdgeInsets.symmetric(
-                                vertical: isSelected ? 0 : 10, horizontal: 8),
-                            width: isSelected ? 120 : 60,
-                            height: isSelected ? 120 : 60,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: AssetImage(avatarImages[index]),
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                ),
+
+                const SizedBox(height: 16),
+                Text(
+                  "Avatar",
+                  style: AppStyle.medium16White,
+                ),
+
+                const SizedBox(height: 20),
+                CustomTextField(icon: Icons.badge, hintText: "Name", controller: nameController),
+                const SizedBox(height: 16),
+                CustomTextField(icon: Icons.email, hintText: "Email", controller: emailController),
+                const SizedBox(height: 16),
+                CustomTextField(icon: Icons.lock, hintText: "Password", controller: passwordController, isPassword: true),
+                const SizedBox(height: 16),
+                CustomTextField(icon: Icons.lock, hintText: "Confirm Password", controller: confirmPasswordController, isPassword: true),
+                const SizedBox(height: 16),
+                CustomTextField(icon: Icons.phone, hintText: "Phone Number", controller: phoneController),
+                const SizedBox(height: 24),
+
+                isLoading
+                    ? CircularProgressIndicator(color: AppColors.yellowColor)
+                    : CustomButton(text: "Create Account", color: AppColors.yellowColor, onPressed: registerUser),
+
+                const SizedBox(height: 16),
+
+                InkWell(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      LoginScreen.routeName,
                     );
                   },
-                ),
-              ),
-
-              const SizedBox(height: 16),
-              Text(
-                "Avatar",
-                style: AppStyle.medium16White,
-              ),
-
-              const SizedBox(height: 12),
-
-              CustomTextField(icon: Icons.badge, hintText: "Name"),
-              const SizedBox(height: 24),
-              CustomTextField(icon: Icons.email, hintText: "Email"),
-              const SizedBox(height: 24),
-              CustomTextField(
-                  icon: Icons.lock, hintText: "Password", isPassword: true),
-              const SizedBox(height: 24),
-              CustomTextField(
-                  icon: Icons.lock,
-                  hintText: "Confirm Password",
-                  isPassword: true),
-              const SizedBox(height: 24),
-              CustomTextField(icon: Icons.phone, hintText: "Phone Number"),
-
-              const SizedBox(height: 24),
-
-              CustomButton(
-                text: "Create Account",
-                color: AppColors.yellowColor,
-                onPressed: () {
-                  // Handle Registration
-                },
-              ),
-
-              const SizedBox(height: 16),
-
-              InkWell(
-                onTap: () {
-                  // Navigator.pushReplacementNamed(
-                  //   context,
-                  //   LoginScreen.routeName,
-                  // );
-                  Navigator.pushNamed(context,HomeScreen.routeName);
-                },
-                child: Text.rich(
-                  textAlign: TextAlign.center,
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "Already Have Account ?",
-                        style: AppStyle.regular14White,
-                      ),
-                      TextSpan(
-                        text: " Login",
-                        style: AppStyle.bold14Yellow,
-                      ),
-                    ],
+                  child: Text.rich(
+                    textAlign: TextAlign.center,
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Already Have Account ?",
+                          style: AppStyle.regular14White,
+                        ),
+                        TextSpan(
+                          text: " Login",
+                          style: AppStyle.bold14Yellow,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
 
-              const SizedBox(height: 15),
+                const SizedBox(height: 15),
 
-              // Language Toggle
-              LanguageToggleSwitch(
-                onToggle: (isEnglish) {
-                  print(isEnglish ? "English Selected" : "Arabic Selected");
-                },
-              ),
+                // Language Toggle
+                LanguageToggleSwitch(
+                  onToggle: (isEnglish) {
+                    print(isEnglish ? "English Selected" : "Arabic Selected");
+                  },
+                ),
 
-              const SizedBox(height: 20),
-            ],
+                const SizedBox(height: 20),
+
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+
+  bool isLoading = false;
+
+  void registerUser() async {
+    final url = Uri.parse("https://route-movie-apis.vercel.app/auth/register");
+    final data = {
+      "name": nameController.text,
+      "email": emailController.text,
+      "password": passwordController.text,
+      "confirmPassword": confirmPasswordController.text,
+      "phone": phoneController.text,
+      "avaterId": selectedAvatarIndex + 1, // Ensure it's not zero-based
+    };
+
+    try {
+      setState(() {
+        isLoading = true;
+      });
+
+      var response = await http.post(
+        url,
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(data),
+      );
+
+      print("Response Status Code: ${response.statusCode}");
+      print("Response Headers: ${response.headers}");
+      print("Response Body: ${response.body}");
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var responseData = jsonDecode(response.body);
+        print("Parsed Response: $responseData");
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(responseData["message"], style: TextStyle(color: AppColors.whiteColor)), backgroundColor: AppColors.greyColor),
+        );
+
+        // Navigate to login screen
+        Navigator.pushReplacementNamed(context, LoginScreen.routeName);
+      } else {
+        print("Request failed with status: ${response.statusCode}");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Registration failed: ${response.statusCode}"), backgroundColor: AppColors.redColor),
+        );
+      }
+    } catch (e) {
+      print("Error: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("An error occurred. Please try again!"), backgroundColor: AppColors.greenColor),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+
 }

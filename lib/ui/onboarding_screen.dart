@@ -155,13 +155,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   ? () {
                                 Navigator.pushReplacementNamed(
                                   context,
-                                  HomeScreen.routeName
+                                  LoginScreen.routeName
                                   // LoginScreen.routeName,
                                 );
                               }
                                   : _nextPage,
                               style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(vertical: 20),
+                                  padding: EdgeInsets.symmetric(vertical: 12),
                                   backgroundColor: AppColors.yellowColor,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16),
@@ -178,7 +178,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               child: OutlinedButton(
                                 onPressed: _previousPage,
                                 style: OutlinedButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(vertical: 20),
+                                    padding: EdgeInsets.symmetric(vertical: 12),
 
                                     foregroundColor:AppColors.yellowColor,
                                     side: BorderSide(color:AppColors.yellowColor),

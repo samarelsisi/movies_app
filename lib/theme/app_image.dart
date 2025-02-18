@@ -20,6 +20,8 @@ class AppImage{
   static const String avatar9="assets/images/avatar-9.png";
   static const String homeBg="assets/images/home_bg.png";
   static const String forgotPassword="assets/images/forgot_password.png";
+  static const String emptyList="assets/images/empty_list.png";
+
 
 
 

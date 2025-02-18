@@ -39,6 +39,14 @@ class AppStyle {
       fontSize: 16, fontWeight: FontWeight.w400, color: AppColors.whiteColor);
   static TextStyle regular20WhiteRoboto = GoogleFonts.roboto(
       fontSize: 20, fontWeight: FontWeight.w400, color: AppColors.whiteColor);
+
+  static TextStyle bold20WhiteRoboto = GoogleFonts.roboto(
+      fontSize: 20, fontWeight: FontWeight.w700, color: AppColors.whiteColor);
+  static TextStyle bold24WhiteRoboto = GoogleFonts.roboto(
+      fontSize: 24, fontWeight: FontWeight.w700, color: AppColors.whiteColor);
+  static TextStyle bold36WhiteRoboto = GoogleFonts.roboto(
+      fontSize: 36, fontWeight: FontWeight.w700, color: AppColors.whiteColor);
+
   static TextStyle regular20White = GoogleFonts.inter(
       fontSize: 20, fontWeight: FontWeight.w400, color: AppColors.whiteColor);
   static TextStyle regular20Whitetrans = GoogleFonts.inter(
