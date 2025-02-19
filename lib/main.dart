@@ -1,3 +1,4 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:movies/theme/app_theme.dart';
 import 'package:movies/ui/auth/forgot_password/forgot_password_screen.dart';
@@ -7,9 +8,11 @@ import 'package:movies/ui/home_screen.dart';
 import 'package:movies/ui/intro_screen.dart';
 import 'package:movies/ui/onboarding_screen.dart';
 
+import 'boc_observer/myboc_observer.dart';
+
 
 void main() async{
-
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
