@@ -62,7 +62,7 @@ class MoviesList extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Row(
                   children: [
-                    MoiveItem(index: index,movies: movies,imageWidth: width*.4,)
+                    MoiveItem(index: index,movies: movies,containerWidth: width*.4,)
                   ],
                 );
               },),

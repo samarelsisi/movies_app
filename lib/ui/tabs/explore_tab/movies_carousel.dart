@@ -55,7 +55,6 @@ class MovieCarousel extends StatelessWidget {
                     )
                     ,
                     padding: EdgeInsets.only(left: width*.03,),
-
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

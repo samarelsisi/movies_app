@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:movies/theme/app_style.dart';
+import 'package:movies/ui/apis/api_manager.dart';
 import 'package:movies/ui/models/MoviesDataResponse.dart';
-import 'package:movies/ui/movies_category/category_tab.dart';
-import '../../theme/app_colors.dart';
-import '../apis/api_manager.dart';
+
+import '../../../theme/app_colors.dart';
+import 'category_tab.dart';
+
 
 class MovieCategory extends StatefulWidget {
   static const String routeName = "movies_category";
