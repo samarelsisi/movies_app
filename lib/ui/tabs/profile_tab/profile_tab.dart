@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../auth/login/login_screen.dart';
 import '../../widgets/cutom_button.dart';
 import '../../../theme/app_image.dart';
-import 'edit_profile_modal.dart';
+import 'edit_profile_screen.dart';
 import 'logout_modal.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -86,20 +86,21 @@ class _ProfileTabState extends State<ProfileTab> {
                   text: 'Edit Profile',
                   color: AppColors.yellowColor,
                   onPressed: () {
-                    showEditProfileModal(
+                    Navigator.pushNamed(
                       context,
-                      currentName: userName,
-                      selectedAvatarIndex: userSelectedAvatarIndex,
-                      avatarImages: avatarImages,
-                      onSave: (updatedName, newAvatarIndex) {
-                        setState(() {
-                          userName = updatedName;
-                          userSelectedAvatarIndex = newAvatarIndex;
-                        });
-                      }, email: '', authToken: '',
+                      EditProfileScreen.routeName, // Use the defined route name
+                      arguments: {
+                        'currentName': userName,
+                        'selectedAvatarIndex': userSelectedAvatarIndex,
+                        'avatarImages': avatarImages,
+                        // 'email': userEmail,
+                        // 'authToken': userAuthToken,
+                      },
                     );
                   },
                 ),
+
+
               ),
               SizedBox(width: 10),
               Expanded(
