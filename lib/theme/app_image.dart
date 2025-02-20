@@ -6,6 +6,9 @@ class AppImage{
   static const String onBoarding5="assets/images/onboarding-5.png";
   static const String onBoarding6="assets/images/onboarding-6.png";
   static const String logo="assets/images/logo.png";
+  static const String play="assets/images/play.png";
+  static const String star="assets/images/play.png";
+
   static const String googleIcon="assets/images/google_icon.png";
   static const String egyptFlag="assets/images/egypt_flag.png";
   static const String usaFlag="assets/images/usa_flag.png";
