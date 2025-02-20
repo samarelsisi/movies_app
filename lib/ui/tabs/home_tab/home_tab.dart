@@ -14,7 +14,7 @@ import '../../../../theme/app_colors.dart';
 import '../../../../theme/app_image.dart';
 import '../../apis/api_manager.dart';
 import '../../models/MoviesDataResponse.dart';
-import '../explore_tab/movies_carousel.dart';
+import 'movies_carousel.dart';
 
 class HomeTab extends StatefulWidget {
 
