@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:movies/ui/apis/api_constant.dart';
+import 'package:movies/ui/apis/api_endpoints.dart';
+import 'package:movies/ui/models/MoviesDetailsResponse.dart';
 
 import '../models/MoviesDataResponse.dart';
 
 class ApiManager {
   static Future<MoviesDataResponse> fetchMovies() async {
-    final url = Uri.parse('https://yts.mx/api/v2/list_movies.json');
+    Uri url = Uri.https(ApiConstant.baseUrl,ApiEndPoints.movieList);
     final response = await http.get(url);
 
     // Check if the HTTP request was successful
@@ -23,4 +26,24 @@ class ApiManager {
       throw Exception('Failed to load movies: ${response.statusCode}');
     }
   }
+  static const String _baseUrl = 'https://yts.mx/api/v2/movie_details.json';
+
+  static Future<Moviedetails> fetchMovieDetails(int movieId) async {
+    final Uri url = Uri.parse('$_baseUrl?movie_id=$movieId&with_images=true&with_cast=true');
+
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        return Moviedetails.fromJson(data);
+      } else {
+        throw Exception('Failed to load movie details');
+      }
+    } catch (e) {
+     throw e;
+    }
+  }
 }
+
+
