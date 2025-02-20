@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         RegisterScreen.routeName:(context)=>RegisterScreen(),
         ForgotPasswordScreen.routeName:(context)=>ForgotPasswordScreen(),
         HomeScreen.routeName: (context) => HomeScreen(),
+
       },
       initialRoute: HomeScreen.routeName,
       theme: AppThemes.lightTheme,
