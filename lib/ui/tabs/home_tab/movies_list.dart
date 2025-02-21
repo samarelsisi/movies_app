@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:movies/ui/movieDetails/screens/movie_details_screen.dart';
 import 'package:movies/ui/widgets/moive_item.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_image.dart';
@@ -62,7 +63,16 @@ class MoviesList extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Row(
                   children: [
-                    MoiveItem(index: index,movies: movies,containerWidth: width*.4,)
+                    GestureDetector(
+                        onTap:(){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MovieDetailsScreen(movieId: movies[index].id!,),
+                            ),
+                          );
+                        },
+                        child: MoiveItem(index: index,movies: movies,containerWidth: width*.4,))
                   ],
                 );
               },),

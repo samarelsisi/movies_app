@@ -12,7 +12,7 @@ class MovieInformatiomItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
-      margin:EdgeInsets.symmetric(horizontal: 16),
+      margin:EdgeInsets.symmetric(horizontal: 12),
       padding: EdgeInsets.symmetric(vertical: 8,horizontal: 16),
       decoration: BoxDecoration(
           color:AppColors.greyColor,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/theme/app_style.dart';
+import 'package:movies/ui/movieDetails/screens/movie_details_screen.dart';
 import 'package:movies/ui/tabs/home_tab/movies_list.dart';
 import 'package:movies/ui/widgets/moive_item.dart';
 import 'package:movies/ui/widgets/placeholder_content.dart';
@@ -124,7 +125,16 @@ class _SearchTabState extends State<SearchTab> {
                       ),
                       itemCount: filterMovies.length ?? 0,
                       itemBuilder: (context, index) {
-                        return MoiveItem(index: index,movies: filterMovies,);
+                        return GestureDetector(
+                            onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MovieDetailsScreen(movieId: movies[index].id!,),
+                                ),
+                              );
+                            },
+                            child: MoiveItem(index: index,movies: filterMovies,));
 
                       },
                     );

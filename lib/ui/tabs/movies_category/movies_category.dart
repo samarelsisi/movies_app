@@ -4,7 +4,7 @@ import 'package:movies/ui/apis/api_manager.dart';
 import 'package:movies/ui/models/MoviesDataResponse.dart';
 
 import '../../../theme/app_colors.dart';
-import '../../movieDetails/movie_details_screen.dart';
+import '../../movieDetails/screens/movie_details_screen.dart';
 import 'category_tab.dart';
 
 

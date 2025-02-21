@@ -5,7 +5,7 @@ import 'package:movies/ui/models/MoviesDataResponse.dart';
 import '../../theme/app_colors.dart';
 
 class MoiveItem extends StatelessWidget {
-  final List<Movies> movies;
+  final List<dynamic> movies;
   final int index;
   final double? containerWidth;
    MoiveItem({required this.movies,required this.index, this.containerWidth,super.key});
