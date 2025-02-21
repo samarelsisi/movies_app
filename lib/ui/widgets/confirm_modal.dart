@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:movies/theme/app_colors.dart';
 import 'package:movies/theme/app_style.dart';
-import '../../widgets/cutom_button.dart';
+import 'cutom_button.dart';
 
-void showLogoutModal(BuildContext context, Function(BuildContext) logoutFunction) {
+void showConfirmModal({
+  required BuildContext context,
+  required String title,
+  required String message,
+  required IconData icon,
+  required Color iconColor,
+  required String confirmButtonText,
+  required Color confirmButtonColor,
+  required Function(BuildContext) onConfirm,
+}) {
   showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
@@ -18,17 +27,16 @@ void showLogoutModal(BuildContext context, Function(BuildContext) logoutFunction
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.exit_to_app, size: 50, color: AppColors.redColor),
+            Icon(icon, size: 50, color: iconColor),
             SizedBox(height: 16),
-            Text("Logout", style: AppStyle.bold24WhiteRoboto),
+            Text(title, style: AppStyle.bold24WhiteRoboto),
             SizedBox(height: 8),
             Text(
-              "Are you sure you want to log out?",
+              message,
               style: AppStyle.bold20WhiteRoboto,
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 24),
-
             Row(
               children: [
                 Expanded(
@@ -42,12 +50,12 @@ void showLogoutModal(BuildContext context, Function(BuildContext) logoutFunction
                 SizedBox(width: 10),
                 Expanded(
                   child: CustomButton(
-                    text: "Logout",
-                    color: AppColors.redColor,
+                    text: confirmButtonText,
+                    color: confirmButtonColor,
                     textColor: AppColors.whiteColor,
                     onPressed: () {
                       Navigator.pop(context);
-                      logoutFunction(context);
+                      onConfirm(context);
                     },
                   ),
                 ),

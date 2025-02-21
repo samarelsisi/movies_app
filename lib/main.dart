@@ -12,6 +12,7 @@ import 'package:movies/ui/home_screen.dart';
 import 'package:movies/ui/intro_screen.dart';
 import 'package:movies/ui/onboarding_screen.dart';
 import 'package:movies/ui/tabs/profile_tab/edit_profile_screen.dart';
+import 'package:movies/ui/tabs/profile_tab/reset_password.dart';
 
 void main() {
   final authService = AuthService(); // Initialize AuthService
@@ -44,6 +45,8 @@ class MyApp extends StatelessWidget {
           ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
           HomeScreen.routeName: (context) => HomeScreen(),
           EditProfileScreen.routeName: (context) => EditProfileScreen(),
+          ResetPasswordScreen.routeName: (context) => ResetPasswordScreen(),
+
         },
         initialRoute: LoginScreen.routeName,
         theme: AppThemes.lightTheme,
