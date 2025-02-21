@@ -92,7 +92,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       context: context,
       backgroundColor: AppColors.greyColor,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (context) {
         return Padding(
@@ -106,6 +106,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
             itemCount: avatarImages.length,
             itemBuilder: (context, index) {
+              bool isSelected = (index == selectedAvatarIndex);
+
               return GestureDetector(
                 onTap: () {
                   setState(() {
@@ -113,9 +115,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   });
                   Navigator.pop(context);
                 },
-                child: CircleAvatar(
-                  backgroundImage: AssetImage(avatarImages[index]),
-                  radius: 40,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? AppColors.yellowColor.withOpacity(0.2)
+                        : Colors.transparent,
+                    border: Border.all(
+                      color: isSelected ? AppColors.yellowColor : AppColors.yellowColor,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Center(
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: AssetImage(avatarImages[index]),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    )
+                    ,
+                  ),
                 ),
               );
             },
@@ -124,6 +148,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       },
     );
   }
+
 
   Future<void> _updateProfile() async {
     setState(() {
@@ -162,18 +187,24 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Profile updated successfully")),
+          SnackBar(content: Text("Profile updated successfully"),
+            backgroundColor: AppColors.greenColor,
+          ),
         );
         Navigator.pop(context); // Return to the Profile tab so it can refresh.
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Failed to update profile")),
+          SnackBar(content: Text("Failed to update profile"),
+            backgroundColor: AppColors.redColor,
+          ),
         );
       }
     } catch (e) {
       print("Error updating profile: $e");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("An error occurred")),
+        SnackBar(content: Text("An error occurred"),
+          backgroundColor: AppColors.redColor,
+        ),
       );
     } finally {
       setState(() {
@@ -207,19 +238,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       if (response.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Account deleted successfully")),
+          SnackBar(content: Text("Account deleted successfully"),
+            backgroundColor: AppColors.greenColor,
+          ),
+
         );
         // Navigate to login screen
         Navigator.pushReplacementNamed(context, LoginScreen.routeName);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Failed to delete account")),
+          SnackBar(content: Text("Failed to delete account"),
+            backgroundColor: AppColors.redColor,
+          ),
         );
       }
     } catch (e) {
       print("Error deleting account: $e");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("An error occurred")),
+        SnackBar(content: Text("An error occurred"),
+          backgroundColor: AppColors.redColor,
+        ),
       );
     }
   }
@@ -247,11 +285,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         // Avatar
                         GestureDetector(
                           onTap: _showAvatarSelection,
-                          child: CircleAvatar(
-                            backgroundImage:
-                            AssetImage(avatarImages[selectedAvatarIndex]),
-                            radius: 50,
-                          ),
+                          child:   Container(
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image:  AssetImage(avatarImages[selectedAvatarIndex]),
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            )
+
                         ),
                         const SizedBox(height: 20),
 

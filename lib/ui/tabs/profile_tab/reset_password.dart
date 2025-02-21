@@ -40,7 +40,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("New passwords do not match."),
-          backgroundColor: AppColors.greenColor,
+          backgroundColor: AppColors.redColor,
         ),
       );
       return;

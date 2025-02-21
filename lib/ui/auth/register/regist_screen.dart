@@ -151,7 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         password: passwordController.text,
         confirmPassword: confirmPasswordController.text,
         phone: phoneController.text,
-        avaterId: selectedAvatarIndex + 1,
+        avaterId: selectedAvatarIndex ,
       ));
     }
   }

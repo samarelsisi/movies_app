@@ -114,11 +114,18 @@ class _ProfileTabState extends State<ProfileTab> {
             children: [
               Column(
                 children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage:
-                        AssetImage(avatarImages[userSelectedAvatarIndex]),
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage(avatarImages[userSelectedAvatarIndex]),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
+
                   SizedBox(height: 16),
                   Text(userName, style: AppStyle.bold20WhiteRoboto),
                 ],

@@ -101,6 +101,41 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 24),
+
+                Row(
+                  children: [
+                    const Expanded(
+                      child: Divider(
+                        thickness: 2,
+                        color: AppColors.yellowColor,
+                        endIndent: 20,
+                        indent: 20,
+                      ),
+                    ),
+                    Text(
+                      "OR",
+                      style: AppStyle.medium16Yellow,
+                    ),
+                    const Expanded(
+                      child: Divider(
+                        endIndent: 20,
+                        indent: 20,
+                        thickness: 2,
+                        color: AppColors.yellowColor,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                CustomButton(
+                  text: "Login With Google",
+                  color: AppColors.yellowColor,
+                  assetImage: AppImage.googleIcon,
+                  isLeading: true,
+                  onPressed: () {},
+                ),
+                const SizedBox(height: 24),
+
                 LanguageToggleSwitch(onToggle: (isEnglish) {}),
               ],
             ),
