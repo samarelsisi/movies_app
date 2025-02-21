@@ -10,7 +10,7 @@ class MovieCastInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(left: 8),
       child: cast?.isEmpty ?? true
           ? Center(
         child: Text(
@@ -24,7 +24,6 @@ class MovieCastInformation extends StatelessWidget {
         itemBuilder: (context, index) {
           final castMember = cast![index];
           return Container(
-            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: AppColors.greyColor,
               borderRadius: BorderRadius.circular(12),

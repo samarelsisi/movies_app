@@ -4,8 +4,11 @@ import 'package:movies/theme/app_colors.dart';
 import 'package:movies/theme/app_style.dart';
 import 'package:movies/ui/movieDetails/cubit/movie_details_view_model.dart';
 import 'package:movies/ui/movieDetails/cubit/movies_details_state.dart';
-import 'package:movies/ui/movieDetails/movie_cast_information.dart';
-import 'package:movies/ui/movieDetails/movie_head.dart';
+import 'package:movies/ui/movieDetails/screens/genres_item.dart';
+import 'package:movies/ui/movieDetails/screens/movie_cast_information.dart';
+import 'package:movies/ui/movieDetails/screens/movie_head.dart';
+import 'package:movies/ui/movieDetails/movie_suggestion/movies_suggestion_screen.dart';
+import 'package:movies/ui/movieDetails/screens/screenshot.dart';
 import 'package:movies/ui/widgets/cutom_button.dart';
 import 'package:movies/ui/widgets/movie_informatiom_item.dart';
 class MovieDetailsScreen extends StatefulWidget {
@@ -17,7 +20,6 @@ class MovieDetailsScreen extends StatefulWidget {
 }
 
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
-  late Future<Map<String, dynamic>?> _movieDetailsFuture;
   MovieDetailsCubit viewModel=MovieDetailsCubit();
 
   @override
@@ -60,9 +62,10 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
               else if(state is MovieLoadedState){
                 final movie=state.movieDetails;
                  final List <dynamic> screenShots=[movie.mediumScreenshotImage1,movie.mediumScreenshotImage2,movie.mediumScreenshotImage3];
+                 final genres=movie.genres;
                 return SingleChildScrollView(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                                  MovieHead(image: movie.largeCoverImage!, title: movie.title!, year: movie.year.toString())
                           ,
@@ -76,46 +79,42 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                                      , MovieInformatiomItem(icon: Icons.star_rate_rounded, text: movie.rating.toString())
                                     ],
                                   )
-,                            Text("Screen Shots",style: AppStyle.bold24White,),
-                  ClipRRect(
-                      borderRadius: BorderRadius.circular(25),
-                      child: Image.network(
-                        screenShots[0],
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),),
+,                           Text("Screen Shots",style: AppStyle.bold24White,),
+                              Screenshot(screenShots: screenShots, index: 0),
                               SizedBox(
                                 height: 8,
                               ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(25),
-                                child: Image.network(
-                                  screenShots[1],
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
+                              Screenshot(screenShots: screenShots, index: 1),
                               SizedBox(
                                 height: 8,
                               ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(25),
-                                child: Image.network(
-                                  screenShots[2],
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
+                              Screenshot(screenShots: screenShots, index: 2),
+                              SizedBox(
+                                height: 8,
                               ),
+                          Text("Similar",style: AppStyle.bold24White,),
+                            MoviesSuggestionScreen(movieId: widget.movieId),
                               SizedBox(
                                 height: 8,
                               ),
                               Text("Summary",style: AppStyle.bold24WhiteRoboto,),
+                              SizedBox(
+                                height: 8,
+                              ),
                               Text(movie.descriptionFull!.isEmpty?"This movie not have summary":movie.descriptionFull!,style: AppStyle.regular20White,)
                                ,   SizedBox(
                                 height: 8,
                                 )
                               ,Text("Cast",style: AppStyle.bold24WhiteRoboto,),
-                              MovieCastInformation(cast: movie.cast ??[])
+                              SizedBox(
+                                height: 20,
+                              ),
+                              MovieCastInformation(cast: movie.cast ??[]),
+                             Text("Genres",style: AppStyle.bold24WhiteRoboto,),
+                             GenresItem(genres: genres??[]),
+                              SizedBox(
+                                height: 20,
+                              ),
                             ],
                           ),
                         );

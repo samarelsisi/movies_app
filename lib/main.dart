@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/boc_observer/myboc_observer.dart';
 import 'package:movies/theme/app_theme.dart';
 import 'package:movies/ui/auth/forgot_password/forgot_password_screen.dart';
 import 'package:movies/ui/auth/login/login_screen.dart';
@@ -16,7 +17,7 @@ void main() {
   final authService = AuthService(); // Initialize AuthService
 
   final authRepository = AuthRepository(authService: authService);
-
+  Bloc.observer = MyBlocObserver();
   runApp(MyApp(authRepository: authRepository));
 }
 
