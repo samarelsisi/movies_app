@@ -8,6 +8,10 @@ class AppImage{
   static const String logo="assets/images/logo.png";
   static const String play="assets/images/play.png";
   static const String star="assets/images/play.png";
+  static const String homeIcon="assets/images/homeIcon.png";
+  static const String exploreIcon="assets/images/exploreIcon.png";
+  static const String profileIcon="assets/images/Profiel.png";
+  static const String searchIcon="assets/images/searchIcon.png";
 
   static const String googleIcon="assets/images/google_icon.png";
   static const String egyptFlag="assets/images/egypt_flag.png";
