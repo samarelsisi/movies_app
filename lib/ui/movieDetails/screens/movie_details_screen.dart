@@ -8,6 +8,7 @@ import 'package:movies/ui/movieDetails/screens/genres_item.dart';
 import 'package:movies/ui/movieDetails/screens/movie_cast_information.dart';
 import 'package:movies/ui/movieDetails/screens/movie_head.dart';
 import 'package:movies/ui/movieDetails/movie_suggestion/movies_suggestion_screen.dart';
+import 'package:movies/ui/movieDetails/screens/movie_web.dart';
 import 'package:movies/ui/movieDetails/screens/screenshot.dart';
 import 'package:movies/ui/widgets/cutom_button.dart';
 import 'package:movies/ui/widgets/movie_informatiom_item.dart';
@@ -67,11 +68,27 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                                 MovieHead(image: movie.largeCoverImage!, title: movie.title!, year: movie.year.toString())
+                                 MovieHead(image: movie.largeCoverImage!, title: movie.title!, year: movie.year.toString(),url: movie.url!,)
                           ,
                               Container(
                                   padding: EdgeInsets.all(16),
-                                  child: CustomButton( color: AppColors.redColor,text: "Watch",textColor: AppColors.whiteColor,onPressed: (){}))
+                                  child: CustomButton(
+                                      color: AppColors.redColor,text: "Watch",
+                                      textColor: AppColors.whiteColor,
+                                      onPressed: (){
+                                        // if (movie!.url != null && movie!.url!.isNotEmpty) {
+                                        //   Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //       builder: (context) => MovieWebViewScreen(url: movie.url!),
+                                        //     ),
+                                        //   );
+                                        // } else {
+                                        //   ScaffoldMessenger.of(context).showSnackBar(
+                                        //     const SnackBar(content: Text("Watch link not available")),
+                                        //   );
+                                        // }
+                                      }))
                                  , Row(
                                     children: [
                                       MovieInformatiomItem(icon: Icons.favorite, text: movie.likeCount.toString())
