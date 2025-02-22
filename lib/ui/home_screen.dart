@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies/theme/app_image.dart';
 import 'package:movies/ui/tabs/explore_tab/explore_tab.dart';
 import 'package:movies/ui/tabs/home_tab/home_tab.dart';
 import 'package:movies/ui/tabs/profile_tab/profile_tab.dart';
@@ -44,10 +45,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildNavItem(Icons.home_outlined, 0),
-                buildNavItem(Icons.search, 1),
-                buildNavItem(Icons.explore, 2),
-                buildNavItem(Icons.account_circle_outlined, 3),
+                buildNavItem(AppImage.homeIcon, 0),
+                buildNavItem(AppImage.searchIcon, 1),
+                buildNavItem(AppImage.exploreIcon, 2),
+                buildNavItem(AppImage.profileIcon, 3),
               ],
 
             ),
@@ -57,10 +58,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget buildNavItem(IconData icon, int index) {
+  Widget buildNavItem(String icon, int index) {
     return IconButton(
-      icon: Icon(
-        icon,
+      icon: ImageIcon(
+        AssetImage(icon),
         size: 32,
         color: currentIndex == index ? Color(0xFFF6BD00) : Colors.white,
       ),

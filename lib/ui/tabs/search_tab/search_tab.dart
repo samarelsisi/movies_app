@@ -4,7 +4,6 @@ import 'package:movies/ui/movieDetails/screens/movie_details_screen.dart';
 import 'package:movies/ui/tabs/home_tab/movies_list.dart';
 import 'package:movies/ui/widgets/moive_item.dart';
 import 'package:movies/ui/widgets/placeholder_content.dart';
-
 import '../../../theme/app_colors.dart';
 import '../../apis/api_manager.dart';
 import '../../models/MoviesDataResponse.dart';
@@ -40,7 +39,6 @@ class _SearchTabState extends State<SearchTab> {
       });
     });
   }
-
   void _searchMovies(String query) {
     setState(() {
       searchQuery = query.toLowerCase();
