@@ -8,7 +8,7 @@ import 'package:movies/ui/models/movie_suggestion.dart';
 import '../models/MoviesDataResponse.dart';
 
 class ApiManager {
-  static Future<MoviesDataResponse> fetchMovies() async {
+   Future<MoviesDataResponse> fetchMovies() async {
     Uri url = Uri.https(ApiConstant.baseUrl,ApiEndPoints.movieList);
     final response = await http.get(url);
 
