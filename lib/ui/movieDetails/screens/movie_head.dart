@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:movies/theme/app_colors.dart';
 import 'package:movies/theme/app_image.dart';
 import 'package:movies/theme/app_style.dart';
-import 'package:movies/ui/home_screen.dart';
+import 'package:movies/ui/movieDetails/screens/movie_web.dart';
 
 class MovieHead extends StatefulWidget {
   final String image;
   final String title;
   final String year;
-
+  final String url;
   const MovieHead({
     required this.image,
     required this.title,
     required this.year,
+    required this.url,
     super.key,
   });
 
@@ -100,16 +101,28 @@ class _MovieHeadState extends State<MovieHead> {
 
             // Play Button
             Align(
+              alignment: Alignment.center,
               child: InkWell(
-                  onTap: (){
-                    print("button play");
+                  onTap: () {
+                    if (widget.url != null && widget.url!.isNotEmpty) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MovieWebViewScreen(url: widget.url),
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text("Watch link not available")),
+                      );
+                    }
                   },
                   child:
               const Image(image: AssetImage(AppImage.play)
               )
 
               ),
-              alignment: Alignment.center,
             ),
           ],
         ),

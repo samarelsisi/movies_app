@@ -4,10 +4,6 @@ import 'package:movies/ui/tabs/explore_tab/explore_tab.dart';
 import 'package:movies/ui/tabs/home_tab/home_tab.dart';
 import 'package:movies/ui/tabs/profile_tab/profile_tab.dart';
 import 'package:movies/ui/tabs/search_tab/search_tab.dart';
-
-
-
-
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'Home';
 
@@ -50,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 buildNavItem(AppImage.exploreIcon, 2),
                 buildNavItem(AppImage.profileIcon, 3),
               ],
-
             ),
           ),
         ),

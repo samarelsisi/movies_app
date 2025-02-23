@@ -74,58 +74,7 @@ class _MovieListScreenState extends State<HomeTab> {
           return Container();
         }, ),
     );
-          
-      
-      //  FutureBuilder(
-          //    future: ApiManager.fetchMovies(),
-          // builder: (context, snapshot){
-          //   if(snapshot.connectionState==ConnectionState.waiting){
-          //     return const Center(
-          //       child: CircularProgressIndicator(color: AppColors.yellowColor),
-          //     );
-          //   }
-          //   else if(snapshot.hasError){
-          //     return Center(
-          //       child: Column(
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //         children: [
-          //            Text("Something went wrong!",style: AppStyle.semi20Yellow),
-          //           ElevatedButton(
-          //             onPressed: () {
-          //               setState(() {}); // Refresh the FutureBuilder
-          //             },
-          //             child: const Text("Try again"),
-          //           ),
-          //         ],
-          //       ),
-          //     );
-          //   }
-          // else if (!snapshot.hasData || snapshot.data!.status != 'ok') {
-          //
-          //     return Center(
-          //       child: Column(
-          //         mainAxisAlignment: MainAxisAlignment.center,
-          //         children: [
-          //           Text(snapshot.data?.statusMessage?? "No data available",style: AppStyle.semi20Yellow),
-          //           ElevatedButton(
-          //             onPressed: () {
-          //               setState(() {}); // Refresh the FutureBuilder
-          //             },
-          //             child: const Text("Try again"),
-          //           ),
-          //         ],
-          //       ),
-          //     );
-          //   }
-          //   var moviesList = snapshot.data!.data!.movies ?? [];
-          //   if (moviesList.isEmpty) {
-          //     return const Center(
-          //       child: Text("No Movies found for this source."),
-          //     );
-          //   }
-          //   return MoviesList(movies: moviesList);
-          //
-          // },)
+
 
   }
 }
