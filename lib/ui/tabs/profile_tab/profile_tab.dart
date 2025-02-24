@@ -15,9 +15,14 @@ import '../../data/services/profile_service.dart';
 import 'edit_profile_screen.dart';
 import 'favorites_list.dart';
 
-class ProfileTab extends StatelessWidget {
+class ProfileTab extends StatefulWidget {
   ProfileTab({Key? key}) : super(key: key);
 
+  @override
+  State<ProfileTab> createState() => _ProfileTabState();
+}
+
+class _ProfileTabState extends State<ProfileTab> {
   final List<String> avatarImages = [
     AppImage.avatar1,
     AppImage.avatar2,
@@ -29,6 +34,10 @@ class ProfileTab extends StatelessWidget {
     AppImage.avatar8,
     AppImage.avatar9,
   ];
+
+  int _watchListLength = 0;
+
+  int _historyListLength = 0;
 
   Future<void> _logout(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -42,6 +51,8 @@ class ProfileTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return BlocProvider(
       create: (context) =>
       ProfileBloc(ProfileRepository(ProfileService()))..add(LoadProfile()),
@@ -94,11 +105,28 @@ class ProfileTab extends StatelessWidget {
                 },
               ),
               _buildTabs(context),
+              SizedBox(
+                height: height * .02,
+              ),
               Expanded(
                 child: TabBarView(
                   children: [
-                    FavoritesList(listType: "watch"),
-                    FavoritesList(listType: "history"),
+                    FavoritesList(
+                      listType: "watch",
+                      onListLengthChanged: (length) {
+                        setState(() {
+                          _watchListLength = length;
+                        });
+                      },
+                    ),
+                    FavoritesList(
+                      listType: "history",
+                      onListLengthChanged: (length) {
+                        setState(() {
+                          _historyListLength = length;
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -141,9 +169,9 @@ class ProfileTab extends StatelessWidget {
               ),
               Row(
                 children: [
-                  _buildStatColumn('12', 'Wish List'),
+                  _buildStatColumn('$_watchListLength', 'Wish List'),
                   const SizedBox(width: 24),
-                  _buildStatColumn('10', 'History'),
+                  _buildStatColumn('$_historyListLength', 'History'),
                 ],
               ),
             ],
@@ -168,7 +196,6 @@ class ProfileTab extends StatelessWidget {
                       context.read<ProfileBloc>().add(LoadProfile());
                     });
                   },
-
                 ),
               ),
               const SizedBox(width: 10),
@@ -227,5 +254,4 @@ class ProfileTab extends StatelessWidget {
       ],
     );
   }
-
 }
