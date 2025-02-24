@@ -29,7 +29,7 @@ class ApiManager {
   }
   static const String _baseUrl = 'https://yts.mx/api/v2/movie_details.json';
 
-  static Future<Moviedetails> fetchMovieDetails(int movieId) async {
+   Future<Moviedetails> fetchMovieDetails(int movieId) async {
     final Uri url = Uri.parse('$_baseUrl?movie_id=$movieId&with_images=true&with_cast=true');
 
     try {
@@ -47,7 +47,7 @@ class ApiManager {
   }
   static const String _suggestionUrl = 'https://yts.mx/api/v2/movie_suggestions.json';
 
-  static Future<MovieSuggestion> fetchMovieSuggestion(int movieId) async {
+   Future<MovieSuggestion> fetchMovieSuggestion(int movieId) async {
     final Uri url = Uri.parse('$_suggestionUrl?movie_id=$movieId');
 
     try {
