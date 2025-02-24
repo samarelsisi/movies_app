@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
           ResetPasswordScreen.routeName: (context) => ResetPasswordScreen(),
 
         },
-        initialRoute: LoginScreen.routeName,
+        initialRoute: HomeScreen.routeName,
         theme: AppThemes.lightTheme,
         darkTheme: AppThemes.darkTheme,
         themeMode: ThemeMode.light,

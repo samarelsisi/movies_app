@@ -1,25 +1,35 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:movies/theme/app_colors.dart';
 import 'package:movies/theme/app_image.dart';
 import 'package:movies/theme/app_style.dart';
-import 'package:movies/ui/movieDetails/screens/movie_web.dart';
+import 'package:movies/ui/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+
+import '../../models/MoviesDetailsResponse.dart';
 
 class MovieHead extends StatefulWidget {
   final String image;
   final String title;
   final String year;
-  final String url;
+  final bool isInHistory;
+  final VoidCallback onHistoryToggle;
+
   const MovieHead({
     required this.image,
     required this.title,
     required this.year,
-    required this.url,
+    required this.isInHistory,
+    required this.onHistoryToggle,
     super.key,
   });
 
   @override
   State<MovieHead> createState() => _MovieHeadState();
 }
+
 
 class _MovieHeadState extends State<MovieHead> {
   @override
@@ -64,14 +74,13 @@ class _MovieHeadState extends State<MovieHead> {
               right: 16,
               top: 16,
               child: IconButton(
-                onPressed: () {
-                  debugPrint("Save button pressed");
-                },
+                onPressed: widget.onHistoryToggle,
                 icon: Icon(
-                  Icons.bookmark,
-                  color: AppColors.whiteColor,
+                  widget.isInHistory ? Icons.bookmark : Icons.bookmark_border,
+                  color: widget.isInHistory ? AppColors.redColor : AppColors.whiteColor,
                   size: 30,
                 ),
+
               ),
             ),
 
@@ -101,28 +110,16 @@ class _MovieHeadState extends State<MovieHead> {
 
             // Play Button
             Align(
-              alignment: Alignment.center,
               child: InkWell(
-                  onTap: () {
-                    if (widget.url != null && widget.url!.isNotEmpty) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MovieWebViewScreen(url: widget.url),
-                        ),
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text("Watch link not available")),
-                      );
-                    }
+                  onTap: (){
+                    print("button play");
                   },
                   child:
               const Image(image: AssetImage(AppImage.play)
               )
 
               ),
+              alignment: Alignment.center,
             ),
           ],
         ),

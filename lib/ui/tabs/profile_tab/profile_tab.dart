@@ -10,6 +10,7 @@ import '../../widgets/cutom_button.dart';
 import '../../../theme/app_image.dart';
 import 'edit_profile_screen.dart';
 import '../../widgets/confirm_modal.dart';
+import 'favorites_list.dart';
 
 class ProfileTab extends StatefulWidget {
   @override
@@ -92,9 +93,8 @@ class _ProfileTabState extends State<ProfileTab> {
                   Expanded(
                     child: TabBarView(
                       children: [
-                        PlaceholderContent(),
-                        PlaceholderContent(),
-                      ],
+                        FavoritesList(listType: "watch"),
+                        FavoritesList(listType: "history"),                      ],
                     ),
                   ),
                 ],
