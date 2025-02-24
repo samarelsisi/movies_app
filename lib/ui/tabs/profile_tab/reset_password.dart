@@ -184,7 +184,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 SizedBox(height: 24),
                 // Reset Password Button
                 isLoading
-                    ? Center(child: CircularProgressIndicator())
+                    ? Center(child: CircularProgressIndicator(color: AppColors.yellowColor))
                     : CustomButton(
                   text: "Reset Password",
                   color: AppColors.yellowColor,

@@ -1,29 +1,37 @@
-
 import 'package:equatable/equatable.dart';
+import 'package:movies/ui/models/profile_data.dart';
 
-class ProfileState extends Equatable {
-  final String userName;
-  final int userSelectedAvatarIndex;
-  final bool isLoading;
-
-  const ProfileState({
-    this.userName = "John Safwat",
-    this.userSelectedAvatarIndex = 0,
-    this.isLoading = true,
-  });
-
-  ProfileState copyWith({
-    String? userName,
-    int? userSelectedAvatarIndex,
-    bool? isLoading,
-  }) {
-    return ProfileState(
-      userName: userName ?? this.userName,
-      userSelectedAvatarIndex: userSelectedAvatarIndex ?? this.userSelectedAvatarIndex,
-      isLoading: isLoading ?? this.isLoading,
-    );
-  }
+abstract class ProfileState extends Equatable {
+  const ProfileState();
 
   @override
-  List<Object> get props => [userName, userSelectedAvatarIndex, isLoading];
+  List<Object?> get props => [];
 }
+
+class ProfileInitial extends ProfileState {}
+
+class ProfileLoading extends ProfileState {}
+
+class ProfileLoaded extends ProfileState {
+  final ProfileData profileData;
+  const ProfileLoaded(this.profileData);
+
+  @override
+  List<Object?> get props => [profileData];
+}
+
+class ProfileError extends ProfileState {
+  final String message;
+  const ProfileError(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
+
+// NEW: Updating states
+class ProfileUpdating extends ProfileState {}
+class ProfileUpdated extends ProfileState {}
+
+// NEW: Deleting states
+class ProfileDeleting extends ProfileState {}
+class ProfileDeleted extends ProfileState {}

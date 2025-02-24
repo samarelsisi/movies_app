@@ -1,32 +1,67 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:movies/ui/models/profile_data.dart';
 
 class ProfileService {
-  final String baseUrl = "https://route-movie-apis.vercel.app";
+  static const _baseUrl = "https://route-movie-apis.vercel.app";
 
-  Future<Map<String, dynamic>?> fetchUserProfile() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? token = prefs.getString("auth_token");
+  // Existing: fetchProfile
+  Future<ProfileData> fetchProfile(String token) async {
+    final url = Uri.parse("$_baseUrl/profile");
+    final response = await http.get(
+      url,
+      headers: {"Authorization": "Bearer $token"},
+    );
 
-      if (token == null) return null;
-
-      final url = Uri.parse("$baseUrl/profile");
-      final response = await http.get(url, headers: {"Authorization": "Bearer $token"});
-
-      if (response.statusCode == 200) {
-        return json.decode(response.body)['data'];
-      } else {
-        return null;
-      }
-    } catch (e) {
-      return null;
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      final data = jsonResponse['data'];
+      return ProfileData.fromJson(data);
+    } else {
+      throw Exception("Failed to fetch profile: ${response.statusCode}");
     }
   }
 
-  Future<void> logout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove("auth_token");
+  // NEW: updateProfile
+  Future<void> updateProfile({
+    required String token,
+    required String name,
+    required String phone,
+    required int avatarId,
+  }) async {
+    final url = Uri.parse("$_baseUrl/profile");
+    final body = json.encode({
+      "name": name,
+      "phone": phone,
+      "avaterId": avatarId,
+    });
+
+    final response = await http.patch(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token",
+      },
+      body: body,
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception("Failed to update profile: ${response.statusCode}");
+    }
+  }
+
+  // NEW: deleteAccount
+  Future<void> deleteAccount(String token) async {
+    final url = Uri.parse("$_baseUrl/profile");
+    final response = await http.delete(
+      url,
+      headers: {
+        "Authorization": "Bearer $token",
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception("Failed to delete account: ${response.statusCode}");
+    }
   }
 }

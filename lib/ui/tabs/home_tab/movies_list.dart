@@ -1,11 +1,16 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/ui/movieDetails/screens/movie_details_screen.dart';
 import 'package:movies/ui/widgets/moive_item.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_image.dart';
 import '../../../theme/app_style.dart';
+import '../../data/services/favorites_service.dart';
 import '../../models/MoviesDataResponse.dart';
+import '../../movieDetails/cubit/movie_details_view_model.dart';
+import '../profile_tab/favorites_repository.dart';
+import 'cubit/favorites_cubit.dart';
 import 'movies_carousel.dart';
 
 class MoviesList extends StatelessWidget {
@@ -64,15 +69,34 @@ class MoviesList extends StatelessWidget {
                 return Row(
                   children: [
                     GestureDetector(
-                        onTap:(){
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MovieDetailsScreen(movieId: movies[index].id!,),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MultiBlocProvider(
+                              providers: [
+                                BlocProvider(
+                                  create: (_) => MovieDetailsCubit(),
+                                ),
+                                BlocProvider(
+                                  create: (_) => FavoritesCubit(
+                                    favoritesService: FavoritesService(),
+                                    favoritesRepository: FavoritesRepository(),
+                                  ),
+                                ),
+                              ],
+                              child: MovieDetailsScreen(movieId: movies[index].id!),
                             ),
-                          );
-                        },
-                        child: MoiveItem(index: index,movies: movies,containerWidth: width*.4,))
+                          ),
+                        );
+                      },
+                      child: MoiveItem(
+                        index: index,
+                        movies: movies,
+                        containerWidth: width * .4,
+                      ),
+                    )
+
                   ],
                 );
               },),

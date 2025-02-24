@@ -4,11 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:movies/theme/app_colors.dart';
 import 'package:movies/theme/app_image.dart';
 import 'package:movies/theme/app_style.dart';
-import 'package:movies/ui/home_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
-
-import '../../models/MoviesDetailsResponse.dart';
 
 class MovieHead extends StatefulWidget {
   final String image;

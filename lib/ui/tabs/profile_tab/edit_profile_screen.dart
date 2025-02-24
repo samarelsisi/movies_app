@@ -356,7 +356,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                             const SizedBox(height: 16),
                             isUpdating
-                                ? Center(child: CircularProgressIndicator())
+                                ? Center(child: CircularProgressIndicator(color: AppColors.yellowColor))
                                 : CustomButton(
                               text: "Update Data",
                               color: AppColors.yellowColor,
