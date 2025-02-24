@@ -41,7 +41,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       body: MultiBlocProvider(
         providers: [
           BlocProvider<MovieDetailsCubit>.value(value: movieDetailsCubit),
-          // FavoritesCubit is provided higher in the widget tree (e.g., via a route wrapper)
         ],
         child: BlocBuilder<MovieDetailsCubit, MovieDetailsStates>(
           builder: (context, state) {

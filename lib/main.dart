@@ -8,10 +8,13 @@ import 'package:movies/ui/auth/register/regist_screen.dart';
 import 'package:movies/ui/data/%20repository/auth_repository.dart';
 import 'package:movies/ui/data/logic/bloc/auth_bloc.dart';
 import 'package:movies/ui/data/services/auth_service.dart';
+import 'package:movies/ui/data/services/favorites_service.dart';
 import 'package:movies/ui/home_screen.dart';
 import 'package:movies/ui/intro_screen.dart';
 import 'package:movies/ui/onboarding_screen.dart';
+import 'package:movies/ui/tabs/home_tab/cubit/favorites_cubit.dart';
 import 'package:movies/ui/tabs/profile_tab/edit_profile_screen.dart';
+import 'package:movies/ui/tabs/profile_tab/favorites_repository.dart';
 import 'package:movies/ui/tabs/profile_tab/reset_password.dart';
 
 void main() {
@@ -34,6 +37,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<AuthBloc>(
           create: (context) => AuthBloc(authRepository: authRepository),
         ),
+        BlocProvider(create: (context) => FavoritesCubit(favoritesService: FavoritesService(), favoritesRepository: FavoritesRepository())),
+        
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
